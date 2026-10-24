@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Reeyaz Ghimire · Full-Stack Engineer (TypeScript, React, AI)</title>
+  <meta name="description"
+    content="Reeyaz Ghimire, full-stack engineer in Lisbon. Builds web and mobile products with TypeScript, React, Node.js and AWS, and ships LLM and voice AI to production.">
+  <meta name="author" content="Reeyaz Ghimire">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://reeyazghimire8.github.io/">
+  <link rel="me" href="https://github.com/reeyazghimire8">
+  <meta name="theme-color" content="#f2f4f6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1216" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Reeyaz Ghimire">
+  <meta property="og:url" content="https://reeyazghimire8.github.io/">
+  <meta property="og:title" content="Reeyaz Ghimire · Full-Stack Engineer">
+  <meta property="og:description"
+    content="Full-stack engineer in Lisbon. Web and mobile products with TypeScript, React, Node.js and AWS, plus LLM and voice AI in production.">
+  <meta property="og:image" content="https://reeyazghimire8.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Reeyaz Ghimire, full-stack engineer in Lisbon, open to remote">
+  <meta property="profile:first_name" content="Reeyaz">
+  <meta property="profile:last_name" content="Ghimire">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "url": "https://reeyazghimire8.github.io/",
+    "name": "Reeyaz Ghimire · Full-Stack Engineer",
+    "inLanguage": "en",
+    "mainEntity": {
+      "@type": "Person",
+      "@id": "https://reeyazghimire8.github.io/#person",
+      "name": "Reeyaz Ghimire",
+      "jobTitle": "Full-Stack Engineer",
+      "description": "Full-stack engineer building web and mobile products with TypeScript, React, Node.js and AWS, and shipping LLM and voice AI to production.",
+      "url": "https://reeyazghimire8.github.io/",
+      "email": "mailto:reeyazghimire8@gmail.com",
+      "sameAs": ["https://github.com/reeyazghimire8"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lisbon",
+        "addressCountry": "PT"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Hypnotic Digital Agency"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "College of Biomedical Engineering and Applied Sciences"
+      },
+      "knowsAbout": ["TypeScript", "React", "Next.js", "Node.js", "NestJS", "Flutter", "GraphQL", "PostgreSQL",
+        "AWS", "Terraform", "Large language models", "Voice AI", "Retrieval-augmented generation", "AI agents"],
+      "subjectOf": {
+        "@type": "DigitalDocument",
+        "name": "Reeyaz Ghimire CV",
+        "encodingFormat": "application/pdf",
+        "url": "https://reeyazghimire8.github.io/Reeyaz_Ghimire_CV.pdf"
+      }
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+  <style>
+    html {
+      scroll-behavior: smooth
+    }
+
+    img {
+      max-width: 100%
+    }
+  </style>
+</head>
+
+<body>
+  <style>
+    /* Layout: one narrow reading column; hero pairs name with a live voice-signal strip and a Relay call trace. */
+    :root {
+      --bg: #f2f4f6;
+      --surface: #ffffff;
+      --ink: #11161d;
+      --muted: #56606c;
+      --line: #d5dbe2;
+      --accent: #0a7570;
+      --accent-soft: #dcefed;
+      --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+      --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0e1216;
+        --surface: #161b21;
+        --ink: #e8ecf0;
+        --muted: #97a1ac;
+        --line: #28313a;
+        --accent: #4cc9bf;
+        --accent-soft: #16302f;
+        color-scheme: dark
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0e1216;
+      --surface: #161b21;
+      --ink: #e8ecf0;
+      --muted: #97a1ac;
+      --line: #28313a;
+      --accent: #4cc9bf;
+      --accent-soft: #16302f;
+      color-scheme: dark
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0
+    }
+
+    a {
+      color: var(--accent);
+      text-underline-offset: 3px
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 3px
+    }
+
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px))
+    }
+
+    .label {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--display);
+      text-wrap: balance;
+      margin: 0;
+      line-height: 1.08
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-block: 22px;
+      flex-wrap: wrap
+    }
+
+    nav .me {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500
+    }
+
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 14px
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none
+    }
+
+    nav ul a:hover {
+      color: var(--ink)
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 48px;
+      align-items: end;
+      padding-block: 48px 28px
+    }
+
+    .hero>* {
+      min-width: 0
+    }
+
+    h1 {
+      font-size: clamp(46px, 8vw, 92px);
+      font-weight: 700;
+      letter-spacing: -.035em
+    }
+
+    .lede {
+      font-size: clamp(18px, 2.1vw, 21px);
+      color: var(--muted);
+      max-width: 34ch;
+      margin: 20px 0 0
+    }
+
+    .lede b {
+      color: var(--ink);
+      font-weight: 500
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px
+    }
+
+    .btn {
+      font: 500 15px var(--body);
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+      cursor: pointer
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink)
+    }
+
+    .btn:hover {
+      border-color: var(--accent)
+    }
+
+    .trace {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 20px;
+      font-family: var(--mono);
+      font-size: 13px
+    }
+
+    .trace header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 12px
+    }
+
+    .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent)
+    }
+
+    .live i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.6s ease-in-out infinite
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: .25
+      }
+    }
+
+    .trace ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px
+    }
+
+    .trace li {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 10px;
+      color: var(--ink)
+    }
+
+    .trace li span {
+      color: var(--muted)
+    }
+
+    .trace li em {
+      font-style: normal;
+      color: var(--accent)
+    }
+
+    .signal {
+      display: block;
+      width: 100%;
+      height: 84px;
+      margin-top: 8px
+    }
+
+    section {
+      padding-block: 64px;
+      border-top: 1px solid var(--line)
+    }
+
+    .sec-head {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      margin-bottom: 32px
+    }
+
+    .sec-head>* {
+      min-width: 0
+    }
+
+    h2 {
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 600;
+      letter-spacing: -.02em
+    }
+
+    .sec-head p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 60ch
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px
+    }
+
+    .proj {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0
+    }
+
+    .proj.feature {
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px
+    }
+
+    .proj.feature>* {
+      min-width: 0
+    }
+
+    .proj h3 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -.015em
+    }
+
+    .proj .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center
+    }
+
+    .proj p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .proj ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px
+    }
+
+    .proj .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      padding: 0 !important;
+      margin: 0
+    }
+
+    .chips li {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--ink)
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 2px 8px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 4px
+    }
+
+    .jobs {
+      display: grid;
+      gap: 0
+    }
+
+    .job {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding-block: 26px;
+      border-top: 1px dashed var(--line)
+    }
+
+    .job:first-child {
+      border-top: 0;
+      padding-top: 0
+    }
+
+    .job>* {
+      min-width: 0
+    }
+
+    .job .when {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums
+    }
+
+    .job h3 {
+      font-size: 21px;
+      font-weight: 600
+    }
+
+    .job h3 span {
+      font-family: var(--body);
+      font-weight: 400;
+      color: var(--muted)
+    }
+
+    .job ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+      max-width: 68ch
+    }
+
+    .stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 28px 32px
+    }
+
+    .stack h3 {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px
+    }
+
+    .stack p {
+      margin: 0
+    }
+
+    .edu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 40px;
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    .edu b {
+      color: var(--ink);
+      font-weight: 500
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center
+    }
+
+    .contact>* {
+      min-width: 0
+    }
+
+    .contact h2 {
+      font-size: clamp(34px, 5vw, 56px)
+    }
+
+    .links {
+      display: grid;
+      gap: 12px
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 18px
+    }
+
+    .row .v {
+      font-family: var(--mono);
+      font-size: 14px;
+      word-break: break-all;
+      user-select: all
+    }
+
+    .row button {
+      font: 500 13px var(--body);
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 5px 12px;
+      cursor: pointer
+    }
+
+    footer {
+      padding-block: 32px 48px;
+      color: var(--muted);
+      font-size: 13px;
+      font-family: var(--mono)
+    }
+
+    @media (max-width:820px) {
+
+      .hero,
+      .proj.feature,
+      .contact {
+        grid-template-columns: 1fr
+      }
+
+      .hero {
+        gap: 32px;
+        padding-top: 24px
+      }
+
+      .sec-head,
+      .job {
+        grid-template-columns: 1fr;
+        gap: 8px
+      }
+
+      .projects {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .live i {
+        animation: none
+      }
+    }
+  </style>
+
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <span class="me">reeyaz ghimire</span>
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main>
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <p class="label">Full-stack engineer · Lisbon, Portugal · Open to remote</p>
+        <h1>Reeyaz Ghimire</h1>
+        <p class="lede">I build <b>web and mobile products</b> with TypeScript, React, Node.js and AWS, and ship <b>LLM
+            and voice AI</b> features to production.</p>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Get in touch</a>
+          <a class="btn" href="Reeyaz_Ghimire_CV.pdf" download>Download CV</a>
+          <a class="btn" href="https://github.com/reeyazghimire8/" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://d19lnm6v45gal6.cloudfront.net/" target="_blank" rel="noopener">Relay demo</a>
+        </div>
+      </div>
+      <aside class="trace" aria-label="How a Relay call flows">
+        <header><span class="label">relay · inbound call</span><span class="live"><i></i>voice agent</span></header>
+        <canvas class="signal" id="signal" aria-hidden="true"></canvas>
+        <ol>
+          <li><span>listen</span>caller asks for an appointment</li>
+          <li><span>intent</span><em>book_appointment</em></li>
+          <li><span>tool</span>google_calendar.create_event()</li>
+          <li><span>guardrail</span>reply checked before sending</li>
+          <li><span>handoff</span>warm transfer, human briefed first</li>
+        </ol>
+      </aside>
+    </header>
+  </div>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Selected work</p>
+        <div>
+          <h2>Products I've built</h2>
+          <p>Owning a feature end to end, from UI and API to data model, infrastructure and deployment.</p>
+        </div>
+      </div>
+      <div class="projects">
+        <article class="proj feature">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="meta"><span class="label">Personal project · built solo · 2026</span><span
+                class="tag">demo</span></div>
+            <h3>Relay</h3>
+            <p>An AI receptionist for small businesses. It answers phone calls in real time, books appointments, and
+              hands off to a person when it should.</p>
+            <ul class="chips">
+              <li>OpenAI Realtime API</li>
+              <li>Telnyx</li>
+              <li>AgentOS</li>
+              <li>pgvector</li>
+              <li>Stripe</li>
+              <li>Turborepo</li>
+            </ul>
+            <p><a href="https://d19lnm6v45gal6.cloudfront.net/" target="_blank" rel="noopener">View the demo →</a></p>
+          </div>
+          <ul>
+            <li>Real-time voice agent with ~300 ms response latency, using intent detection and function calling to book
+              Google Calendar appointments during the call.</li>
+            <li>Warm transfer that briefs a human before connecting the caller.</li>
+            <li>RAG knowledge base with hybrid vector and keyword search over websites, files, Google Drive and APIs,
+              with review, versioning and publishing.</li>
+            <li>Guardrail layer that checks every reply against private facts. Business hours, holidays and call routing
+              are enforced in code, not in the prompt.</li>
+            <li>One inbox for phone, web chat, Gmail, Outlook, WhatsApp and SMS, with transcripts, summaries and
+              recordings.</li>
+            <li>Usage-based credit billing and self-serve onboarding to a first test call in under 10 minutes.</li>
+          </ul>
+        </article>
+        <article class="proj">
+          <div class="meta"><span class="label">Hypnotic Digital Agency</span></div>
+          <h3>yetify.ai</h3>
+          <p>A Generative Engine Optimization (GEO) product that tracks how brands are mentioned and cited by ChatGPT,
+            Gemini, Claude and other AI assistants.</p>
+          <ul>
+            <li>Multi-model LLM pipeline in Node.js and TypeScript that runs each prompt across assistants, parses
+              responses and extracts citations.</li>
+            <li>Turns those results into per-brand content recommendations.</li>
+          </ul>
+          <p><a href="https://yetify.ai" target="_blank" rel="noopener">yetify.ai →</a></p>
+        </article>
+        <article class="proj">
+          <div class="meta"><span class="label">Hypnotic Digital Agency</span></div>
+          <h3>Fintech app</h3>
+          <p>Features across a fintech platform's Flutter mobile app and the NestJS REST APIs behind it.</p>
+          <ul>
+            <li>Transactions, account management and real-time data sync.</li>
+            <li>Also delivered a fuel-price tracking platform on Strapi with a Next.js frontend.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Experience</p>
+        <div>
+          <h2>5+ years shipping</h2>
+        </div>
+      </div>
+      <div class="jobs">
+        <div class="job">
+          <p class="when">May 2023 – Present</p>
+          <div>
+            <h3>Full Stack Developer <span>· Hypnotic Digital Agency</span></h3>
+            <ul>
+              <li>Shipped yetify.ai, a GEO product measuring brand visibility in AI search, and designed its multi-model
+                LLM pipeline.</li>
+              <li>Built Flutter mobile features and NestJS REST APIs for a fintech platform.</li>
+              <li>Delivered a fuel-price tracking platform with Strapi and Next.js.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="job">
+          <p class="when">May 2021 – Aug 2022</p>
+          <div>
+            <h3>Software Developer <span>· Naamche</span></h3>
+            <ul>
+              <li>Built and maintained Node.js and TypeScript GraphQL services powering several web and mobile client
+                apps.</li>
+              <li>Migrated deployments to Terraform-managed AWS with blue-green releases on CodeDeploy for zero-downtime
+                releases.</li>
+              <li>Reworked CI/CD pipelines across environments, lowering infrastructure costs and tightening security.
+              </li>
+              <li>Set up centralized logging and dashboards with Grafana, Loki and Promtail.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="job">
+          <p class="when">Aug 2020 – Mar 2021</p>
+          <div>
+            <h3>Software Developer <span>· SmartLab</span></h3>
+            <ul>
+              <li>Built a real-time vehicle tracking backend that ingests GPS updates and streams live positions over
+                WebSockets via Pub/Sub, and integrated live tracking into the Flutter app.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Stack</p>
+        <div>
+          <h2>Tools I work with</h2>
+        </div>
+      </div>
+      <div class="stack">
+        <div>
+          <h3>Languages</h3>
+          <p>TypeScript, JavaScript, SQL, Go</p>
+        </div>
+        <div>
+          <h3>Frontend &amp; mobile</h3>
+          <p>React, Next.js, Flutter, Strapi</p>
+        </div>
+        <div>
+          <h3>Backend</h3>
+          <p>Node.js, NestJS, REST, GraphQL, WebSockets, RabbitMQ, Pub/Sub, Redis, Prisma</p>
+        </div>
+        <div>
+          <h3>AI &amp; LLM</h3>
+          <p>OpenAI and Realtime API, Gemini, Claude, AI agents, AgentOS, function calling, RAG, hybrid search,
+            guardrails, Telnyx voice</p>
+        </div>
+        <div>
+          <h3>Data</h3>
+          <p>PostgreSQL with pgvector, MongoDB, Elasticsearch</p>
+        </div>
+        <div>
+          <h3>Cloud &amp; DevOps</h3>
+          <p>AWS (ECS, EC2, Lambda, CodeDeploy), Docker, Terraform, GitHub Actions, Grafana, Loki</p>
+        </div>
+        <div>
+          <h3>Testing &amp; tooling</h3>
+          <p>Jest, Vitest, Turborepo</p>
+        </div>
+      </div>
+      <div class="edu">
+        <span><b>BSc Biomedical Engineering</b> · College of Biomedical Engineering and Applied Sciences,
+          2016–2020</span>
+        <span><b>DevOps on AWS Specialization</b> · Coursera, 2022</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact">
+      <div>
+        <p class="label">Contact</p>
+        <h2>Let's build something.</h2>
+        <p style="color:var(--muted);max-width:44ch">Based in Lisbon, Portugal and open to remote roles. Email is the
+          best way to reach me.</p>
+      </div>
+      <div class="links">
+        <div class="row"><a class="v" href="mailto:reeyazghimire8@gmail.com"
+            id="email">reeyazghimire8@gmail.com</a><button type="button" id="copy-email">Copy</button></div>
+        <div class="row"><a class="v" href="Reeyaz_Ghimire_CV.pdf" download>Reeyaz_Ghimire_CV.pdf</a><span
+            class="label">CV · PDF</span></div>
+        <div class="row"><a class="v" href="https://github.com/reeyazghimire8/" target="_blank"
+            rel="noopener">github.com/reeyazghimire8</a><span class="label">GitHub</span></div>
+        <div class="row"><a class="v" href="https://d19lnm6v45gal6.cloudfront.net/" target="_blank" rel="noopener">Relay
+            demo</a><span class="label">Project</span></div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 Reeyaz Ghimire</div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('copy-email');
+      btn.addEventListener('click', function () {
+        var t = 'reeyazghimire8@gmail.com';
+        function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy' }, 1600) }
+        function fallback() { var r = document.createRange(); r.selectNodeContents(document.getElementById('email')); var s = getSelection(); s.removeAllRanges(); s.addRange(r) }
+        try { navigator.clipboard.writeText(t).then(done, fallback) } catch (e) { fallback() }
+      });
+      var c = document.getElementById('signal'), x = c.getContext('2d');
+      var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function size() { var d = devicePixelRatio || 1; c.width = c.clientWidth * d; c.height = c.clientHeight * d; x.setTransform(d, 0, 0, d, 0, 0) }
+      size(); addEventListener('resize', size);
+      function draw(t) {
+        var w = c.clientWidth, h = c.clientHeight, col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#0a7570';
+        x.clearRect(0, 0, w, h); x.fillStyle = col;
+        var bars = Math.floor(w / 6);
+        for (var i = 0; i < bars; i++) {
+          var p = i / bars, env = Math.sin(p * Math.PI) * .85 + .15;
+          var a = Math.abs(Math.sin(i * .37 + t * .0021) * Math.cos(i * .11 - t * .0013)) * env;
+          var bh = Math.max(2, a * h * .9);
+          x.globalAlpha = .35 + .65 * env;
+          x.fillRect(i * 6, (h - bh) / 2, 3, bh);
+        }
+        x.globalAlpha = 1;
+        if (!still) requestAnimationFrame(draw);
+      }
+      draw(1200);
+    })();
+  </script>
+</body>
+
+</html>
