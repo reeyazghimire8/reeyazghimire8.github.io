@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Reeyaz Ghimire · Full-Stack Engineer (TypeScript, React, AI)</title>
+  <title>Reeyaz Ghimire · Full-Stack Software Engineer</title>
   <meta name="description"
-    content="Reeyaz Ghimire, full-stack engineer in Lisbon. Builds web and mobile products with TypeScript, React, Node.js and AWS, and ships LLM and voice AI to production.">
+    content="Lisbon-based full-stack software engineer with 5+ years building web and mobile products with TypeScript, React, Node.js and AWS. Built AI search tools and Relay, a voice AI receptionist.">
   <meta name="author" content="Reeyaz Ghimire">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://reeyazghimire8.github.io/">
@@ -20,9 +20,9 @@
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Reeyaz Ghimire">
   <meta property="og:url" content="https://reeyazghimire8.github.io/">
-  <meta property="og:title" content="Reeyaz Ghimire · Full-Stack Engineer">
+  <meta property="og:title" content="Reeyaz Ghimire · Full-Stack Software Engineer">
   <meta property="og:description"
-    content="Full-stack engineer in Lisbon. Web and mobile products with TypeScript, React, Node.js and AWS, plus LLM and voice AI in production.">
+    content="Lisbon-based full-stack software engineer building production web and mobile apps, AI search tools, and Relay, a voice AI receptionist.">
   <meta property="og:image" content="https://reeyazghimire8.github.io/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -36,14 +36,14 @@
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     "url": "https://reeyazghimire8.github.io/",
-    "name": "Reeyaz Ghimire · Full-Stack Engineer",
+    "name": "Reeyaz Ghimire · Full-Stack Software Engineer",
     "inLanguage": "en",
     "mainEntity": {
       "@type": "Person",
       "@id": "https://reeyazghimire8.github.io/#person",
       "name": "Reeyaz Ghimire",
-      "jobTitle": "Full-Stack Engineer",
-      "description": "Full-stack engineer building web and mobile products with TypeScript, React, Node.js and AWS, and shipping LLM and voice AI to production.",
+      "jobTitle": "Full-Stack Software Engineer",
+      "description": "Full-stack software engineer with 5+ years building production web and mobile applications with TypeScript, React, Node.js and AWS, including work on AI search and real-time voice.",
       "url": "https://reeyazghimire8.github.io/",
       "email": "mailto:reeyazghimire8@gmail.com",
       "sameAs": ["https://github.com/reeyazghimire8"],
@@ -398,11 +398,8 @@
       letter-spacing: -.015em
     }
 
-    .proj .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 14px;
-      align-items: center
+    .proj .project-link {
+      margin-top: auto
     }
 
     .proj p {
@@ -433,15 +430,6 @@
       border-radius: 999px;
       background: var(--accent-soft);
       color: var(--ink)
-    }
-
-    .tag {
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 2px 8px;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      border-radius: 4px
     }
 
     .jobs {
@@ -629,10 +617,10 @@
   <div class="wrap">
     <header class="hero">
       <div>
-        <p class="label">Full-stack engineer · Lisbon, Portugal · Open to remote</p>
+        <p class="label">Full-stack software engineer · Lisbon, Portugal · Open to remote</p>
         <h1>Reeyaz Ghimire</h1>
-        <p class="lede">I build <b>web and mobile products</b> with TypeScript, React, Node.js and AWS, and ship <b>LLM
-            and voice AI</b> features to production.</p>
+        <p class="lede">I build <b>web and mobile products</b> with TypeScript, React, Node.js and AWS. My work spans
+          interfaces, APIs and cloud deployment, including <b>AI search and real-time voice</b>.</p>
         <div class="cta">
           <a class="btn primary" href="#contact">Get in touch</a>
           <a class="btn" href="Reeyaz_Ghimire_CV.pdf" download>Download CV</a>
@@ -641,12 +629,12 @@
         </div>
       </div>
       <aside class="trace" aria-label="How a Relay call flows">
-        <header><span class="label">relay · inbound call</span><span class="live"><i></i>voice agent</span></header>
+        <header><span class="label">Relay · example call</span><span class="live"><i></i>voice agent</span></header>
         <canvas class="signal" id="signal" aria-hidden="true"></canvas>
         <ol>
           <li><span>listen</span>caller asks for an appointment</li>
           <li><span>intent</span><em>book_appointment</em></li>
-          <li><span>tool</span>google_calendar.create_event()</li>
+          <li><span>tool</span>Book in Google Calendar</li>
           <li><span>guardrail</span>reply checked before sending</li>
           <li><span>handoff</span>warm transfer, human briefed first</li>
         </ol>
@@ -659,61 +647,63 @@
       <div class="sec-head">
         <p class="label">Selected work</p>
         <div>
-          <h2>Products I've built</h2>
-          <p>Owning a feature end to end, from UI and API to data model, infrastructure and deployment.</p>
+          <h2>Products I’ve worked on</h2>
         </div>
       </div>
       <div class="projects">
         <article class="proj feature">
           <div style="display:flex;flex-direction:column;gap:14px">
-            <div class="meta"><span class="label">Personal project · built solo · 2026</span><span
-                class="tag">demo</span></div>
+            <p class="label">Independent project · 2026</p>
             <h3>Relay</h3>
-            <p>An AI receptionist for small businesses. It answers phone calls in real time, books appointments, and
-              hands off to a person when it should.</p>
+            <p>I built Relay independently as a voice AI receptionist and unified inbox for small businesses. It answers
+              calls, books appointments, and connects callers with staff when needed.</p>
             <ul class="chips">
               <li>OpenAI Realtime API</li>
               <li>Telnyx</li>
               <li>AgentOS</li>
               <li>pgvector</li>
               <li>Stripe</li>
-              <li>Turborepo</li>
             </ul>
             <p><a href="https://d19lnm6v45gal6.cloudfront.net/" target="_blank" rel="noopener">View the demo →</a></p>
           </div>
           <ul>
-            <li>Real-time voice agent with ~300 ms response latency, using intent detection and function calling to book
-              Google Calendar appointments during the call.</li>
-            <li>Warm transfer that briefs a human before connecting the caller.</li>
-            <li>RAG knowledge base with hybrid vector and keyword search over websites, files, Google Drive and APIs,
-              with review, versioning and publishing.</li>
-            <li>Guardrail layer that checks every reply against private facts. Business hours, holidays and call routing
-              are enforced in code, not in the prompt.</li>
-            <li>One inbox for phone, web chat, Gmail, Outlook, WhatsApp and SMS, with transcripts, summaries and
-              recordings.</li>
-            <li>Usage-based credit billing and self-serve onboarding to a first test call in under 10 minutes.</li>
+            <li>About 300 ms voice response latency, with live Google Calendar booking and warm transfers that brief
+              staff before connecting callers.</li>
+            <li>A knowledge base combines vector and keyword search across websites, files, Google Drive and APIs.
+              Publishing controls and factual guardrails govern what the agent can say, while rules handle call routing
+              and business hours.</li>
+            <li>One inbox for six channels: calls, web chat, Gmail, Outlook, WhatsApp and SMS, with transcripts and
+              summaries.</li>
+            <li>Stripe usage-based credit billing and self-serve onboarding to a first test call in under 10 minutes.</li>
           </ul>
         </article>
         <article class="proj">
-          <div class="meta"><span class="label">Hypnotic Digital Agency</span></div>
-          <h3>yetify.ai</h3>
-          <p>A Generative Engine Optimization (GEO) product that tracks how brands are mentioned and cited by ChatGPT,
-            Gemini, Claude and other AI assistants.</p>
-          <ul>
-            <li>Multi-model LLM pipeline in Node.js and TypeScript that runs each prompt across assistants, parses
-              responses and extracts citations.</li>
-            <li>Turns those results into per-brand content recommendations.</li>
-          </ul>
-          <p><a href="https://yetify.ai" target="_blank" rel="noopener">yetify.ai →</a></p>
+          <p class="label">Hypnotic Digital Agency · AI search</p>
+          <h3>Yetify</h3>
+          <p>Built full-stack features for a platform that tracks brand visibility in AI search. A Node.js and TypeScript
+            pipeline analyzes brand mentions and citations across ChatGPT, Gemini and Claude and turns the results into
+            content recommendations.</p>
+          <p class="project-link"><a href="https://yetify.ai/" target="_blank" rel="noopener">yetify.ai →</a></p>
         </article>
         <article class="proj">
-          <div class="meta"><span class="label">Hypnotic Digital Agency</span></div>
-          <h3>Fintech app</h3>
-          <p>Features across a fintech platform's Flutter mobile app and the NestJS REST APIs behind it.</p>
-          <ul>
-            <li>Transactions, account management and real-time data sync.</li>
-            <li>Also delivered a fuel-price tracking platform on Strapi with a Next.js frontend.</li>
-          </ul>
+          <p class="label">Hypnotic Digital Agency · Fintech</p>
+          <h3>Pulsoo</h3>
+          <p>Developed Flutter mobile features and NestJS REST APIs for a business finance app, supporting account
+            management, transaction tracking and real-time financial data sync.</p>
+          <p class="project-link"><a href="https://pulsoo.pt/" target="_blank" rel="noopener">pulsoo.pt →</a></p>
+        </article>
+        <article class="proj">
+          <p class="label">Hypnotic Digital Agency · Price comparison</p>
+          <h3>Kombustíveis</h3>
+          <p>Built Strapi backend services and APIs that let drivers compare fuel prices and find nearby stations.</p>
+          <p class="project-link"><a href="https://kombustiveis.pt/" target="_blank" rel="noopener">kombustiveis.pt →</a></p>
+        </article>
+        <article class="proj">
+          <p class="label">Hypnotic Digital Agency · Developer tools</p>
+          <h3>Firepanel</h3>
+          <p>Contributed to a headless Firebase CMS that brings Firestore content, cloud storage and push notifications
+            into one admin interface.</p>
+          <p class="project-link"><a href="https://firepanel.io/" target="_blank" rel="noopener">firepanel.io →</a></p>
         </article>
       </div>
     </div>
@@ -724,7 +714,7 @@
       <div class="sec-head">
         <p class="label">Experience</p>
         <div>
-          <h2>5+ years shipping</h2>
+          <h2>5+ years building software</h2>
         </div>
       </div>
       <div class="jobs">
@@ -733,10 +723,10 @@
           <div>
             <h3>Full Stack Developer <span>· Hypnotic Digital Agency</span></h3>
             <ul>
-              <li>Shipped yetify.ai, a GEO product measuring brand visibility in AI search, and designed its multi-model
-                LLM pipeline.</li>
-              <li>Built Flutter mobile features and NestJS REST APIs for a fintech platform.</li>
-              <li>Delivered a fuel-price tracking platform with Strapi and Next.js.</li>
+              <li>Built full-stack features for Yetify’s AI search platform and developed mobile features and APIs for
+                Pulsoo’s business finance app.</li>
+              <li>Built Strapi services for Kombustíveis’ fuel-price comparison platform and contributed to Firepanel’s
+                Firebase CMS.</li>
             </ul>
           </div>
         </div>
@@ -745,13 +735,12 @@
           <div>
             <h3>Software Developer <span>· Naamche</span></h3>
             <ul>
-              <li>Built and maintained Node.js and TypeScript GraphQL services powering several web and mobile client
-                apps.</li>
-              <li>Migrated deployments to Terraform-managed AWS with blue-green releases on CodeDeploy for zero-downtime
-                releases.</li>
-              <li>Reworked CI/CD pipelines across environments, lowering infrastructure costs and tightening security.
-              </li>
-              <li>Set up centralized logging and dashboards with Grafana, Loki and Promtail.</li>
+              <li>Built and maintained Node.js and TypeScript GraphQL services for
+                <a href="https://www.realpha.com/" target="_blank" rel="noopener">reAlpha</a>’s web and mobile apps.</li>
+              <li>Migrated AWS infrastructure to Terraform for reproducible environments and zero-downtime deployments
+                with AWS CodeDeploy blue-green releases.</li>
+              <li>Reworked CI/CD across environments to reduce cloud costs and strengthen security, and centralized
+                production logging and monitoring with Grafana, Loki and Promtail.</li>
             </ul>
           </div>
         </div>
@@ -760,8 +749,8 @@
           <div>
             <h3>Software Developer <span>· SmartLab</span></h3>
             <ul>
-              <li>Built a real-time vehicle tracking backend that ingests GPS updates and streams live positions over
-                WebSockets via Pub/Sub, and integrated live tracking into the Flutter app.</li>
+              <li>Owned vehicle tracking end to end, from an event-driven backend using Pub/Sub and WebSockets to live
+                GPS monitoring in the Flutter app.</li>
             </ul>
           </div>
         </div>
@@ -784,16 +773,16 @@
         </div>
         <div>
           <h3>Frontend &amp; mobile</h3>
-          <p>React, Next.js, Flutter, Strapi</p>
+          <p>React, Next.js, Flutter</p>
         </div>
         <div>
           <h3>Backend</h3>
           <p>Node.js, NestJS, REST, GraphQL, WebSockets, RabbitMQ, Pub/Sub, Redis, Prisma</p>
         </div>
         <div>
-          <h3>AI &amp; LLM</h3>
-          <p>OpenAI and Realtime API, Gemini, Claude, AI agents, AgentOS, function calling, RAG, hybrid search,
-            guardrails, Telnyx voice</p>
+          <h3>AI &amp; integrations</h3>
+          <p>OpenAI Realtime API, LLM APIs, AI agents, AgentOS, function calling, RAG, hybrid search, Telnyx,
+            Google Calendar API, Stripe</p>
         </div>
         <div>
           <h3>Data</h3>
@@ -801,11 +790,11 @@
         </div>
         <div>
           <h3>Cloud &amp; DevOps</h3>
-          <p>AWS (ECS, EC2, Lambda, CodeDeploy), Docker, Terraform, GitHub Actions, Grafana, Loki</p>
+          <p>AWS (ECS, EC2, Lambda, CodeDeploy), Terraform, Docker, CI/CD, GitHub Actions, Grafana, Loki, Promtail</p>
         </div>
         <div>
           <h3>Testing &amp; tooling</h3>
-          <p>Jest, Vitest, Turborepo</p>
+          <p>Jest, Vitest, Turborepo, Strapi</p>
         </div>
       </div>
       <div class="edu">
