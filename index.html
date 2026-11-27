@@ -89,7 +89,6 @@
 
 <body>
   <style>
-    /* Layout: one narrow reading column; hero pairs name with a live voice-signal strip and a Relay call trace. */
     :root {
       --bg: #f2f4f6;
       --surface: #ffffff;
@@ -270,70 +269,108 @@
     .trace {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px 20px;
-      font-family: var(--mono);
-      font-size: 13px
+      border-radius: 20px;
+      padding: clamp(18px, 3vw, 24px);
+      box-shadow: 0 12px 32px rgb(0 0 0 / 6%)
     }
 
     .trace header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      gap: 12px
+      flex-wrap: wrap;
+      gap: 8px 12px
     }
 
-    .live {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent)
+    .trace h2 {
+      font-size: clamp(20px, 5.5vw, 24px);
+      text-wrap: wrap
     }
 
-    .live i {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 1.6s ease-in-out infinite
+    .trace-example {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11px
     }
 
-    @keyframes pulse {
-      50% {
-        opacity: .25
-      }
+    .trace-sample {
+      margin: 16px 0 18px;
+      padding: 12px 14px;
+      border: 1px solid color-mix(in srgb, var(--accent) 17%, var(--line));
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent-soft) 64%, var(--surface))
+    }
+
+    .trace-sample figcaption {
+      color: var(--accent);
+      font-size: 11px
+    }
+
+    .trace-sample blockquote {
+      margin: 2px 0 0;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.35
     }
 
     .trace ol {
+      display: grid;
+      gap: 10px;
       list-style: none;
       margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 8px
+      padding: 0 0 0 23px
     }
 
     .trace li {
-      display: grid;
-      grid-template-columns: 88px 1fr;
-      gap: 10px;
-      color: var(--ink)
+      position: relative;
+      font-size: 14px;
+      line-height: 1.35
+    }
+
+    .trace li::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: -23px;
+      width: 9px;
+      height: 9px;
+      box-sizing: border-box;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      background: var(--surface)
+    }
+
+    .trace li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      inset: 14px auto -15px -19px;
+      width: 1px;
+      background: var(--line)
+    }
+
+    .trace li strong {
+      font-weight: 500
     }
 
     .trace li span {
+      display: block;
+      margin-top: 2px;
       color: var(--muted)
     }
 
-    .trace li em {
-      font-style: normal;
+    .trace li code {
+      font: 12px var(--mono);
       color: var(--accent)
     }
 
     .signal {
       display: block;
       width: 100%;
-      height: 84px;
-      margin-top: 8px
+      height: 44px;
+      margin-top: 6px;
+      background: linear-gradient(var(--line), var(--line)) center / 100% 1px no-repeat;
+      color: var(--accent)
     }
 
     section {
@@ -593,12 +630,6 @@
         grid-template-columns: 1fr
       }
     }
-
-    @media (prefers-reduced-motion:reduce) {
-      .live i {
-        animation: none
-      }
-    }
   </style>
 
   <div class="wrap">
@@ -628,15 +659,21 @@
           <a class="btn" href="https://d19lnm6v45gal6.cloudfront.net/" target="_blank" rel="noopener">Relay</a>
         </div>
       </div>
-      <aside class="trace" aria-label="How a Relay call flows">
-        <header><span class="label">Relay · example call</span><span class="live"><i></i>voice agent</span></header>
-        <canvas class="signal" id="signal" aria-hidden="true"></canvas>
-        <ol>
-          <li><span>listen</span>caller asks for an appointment</li>
-          <li><span>intent</span><em>book_appointment</em></li>
-          <li><span>tool</span>Book in Google Calendar</li>
-          <li><span>guardrail</span>reply checked before sending</li>
-          <li><span>handoff</span>warm transfer, human briefed first</li>
+      <aside class="trace" aria-labelledby="relay-call-title">
+        <header>
+          <h2 id="relay-call-title">Inside a Relay call</h2>
+          <span class="label trace-example">Example</span>
+        </header>
+        <figure class="trace-sample">
+          <figcaption class="label">Caller</figcaption>
+          <blockquote>“Can I book an appointment?”</blockquote>
+          <canvas class="signal" id="signal" aria-hidden="true"></canvas>
+        </figure>
+        <ol role="list">
+          <li><strong>Identify intent</strong><span>Map the request to <code>book_appointment</code>.</span></li>
+          <li><strong>Book the appointment</strong><span>Use Google Calendar during the call.</span></li>
+          <li><strong>Check the reply</strong><span>Verify the response against approved facts.</span></li>
+          <li><strong>Hand off when needed</strong><span>Brief staff before connecting the caller.</span></li>
         </ol>
       </aside>
     </header>
@@ -856,25 +893,41 @@
         function fallback() { var r = document.createRange(); r.selectNodeContents(document.getElementById('email')); var s = getSelection(); s.removeAllRanges(); s.addRange(r) }
         try { navigator.clipboard.writeText(t).then(done, fallback) } catch (e) { fallback() }
       });
-      var c = document.getElementById('signal'), x = c.getContext('2d');
-      var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      function size() { var d = devicePixelRatio || 1; c.width = c.clientWidth * d; c.height = c.clientHeight * d; x.setTransform(d, 0, 0, d, 0, 0) }
-      size(); addEventListener('resize', size);
-      function draw(t) {
-        var w = c.clientWidth, h = c.clientHeight, col = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#0a7570';
-        x.clearRect(0, 0, w, h); x.fillStyle = col;
-        var bars = Math.floor(w / 6);
-        for (var i = 0; i < bars; i++) {
-          var p = i / bars, env = Math.sin(p * Math.PI) * .85 + .15;
-          var a = Math.abs(Math.sin(i * .37 + t * .0021) * Math.cos(i * .11 - t * .0013)) * env;
-          var bh = Math.max(2, a * h * .9);
-          x.globalAlpha = .35 + .65 * env;
-          x.fillRect(i * 6, (h - bh) / 2, 3, bh);
-        }
-        x.globalAlpha = 1;
-        if (!still) requestAnimationFrame(draw);
+      const signal = document.getElementById('signal');
+      const context = signal.getContext('2d');
+      const amplitudes = [
+        .04, .08, .14, .32, .51, .36, .22, .08, .04, .11, .28, .45, .66, .48, .22, .08,
+        .05, .16, .31, .56, .82, .96, .73, .51, .25, .14, .07, .13, .33, .51, .63, .43,
+        .26, .12, .04, .06, .15, .31, .44, .28, .13, .07, .04
+      ];
+
+      function drawSignal() {
+        const { clientWidth: width, clientHeight: height } = signal;
+        const spacing = width / amplitudes.length;
+        const scale = window.devicePixelRatio || 1;
+        signal.width = Math.round(width * scale);
+        signal.height = Math.round(height * scale);
+        context.setTransform(scale, 0, 0, scale, 0, 0);
+        context.lineWidth = Math.min(3, spacing * .48);
+        context.lineCap = 'round';
+        context.strokeStyle = getComputedStyle(signal).color;
+
+        amplitudes.forEach(function (amplitude, index) {
+          const center = (index + .5) * spacing;
+          const halfHeight = amplitude * height * .42;
+          context.globalAlpha = .48 + amplitude * .5;
+          context.beginPath();
+          context.moveTo(center, height / 2 - halfHeight);
+          context.lineTo(center, height / 2 + halfHeight);
+          context.stroke();
+        });
       }
-      draw(1200);
+
+      if (context) {
+        drawSignal();
+        new ResizeObserver(drawSignal).observe(signal);
+        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawSignal);
+      }
     })();
   </script>
 </body>
