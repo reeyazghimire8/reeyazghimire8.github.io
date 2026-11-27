@@ -81,6 +81,12 @@
       scroll-behavior: smooth
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto
+      }
+    }
+
     img {
       max-width: 100%
     }
@@ -137,6 +143,17 @@
       font-size: 16px;
       line-height: 1.6;
       margin: 0
+    }
+
+    .reading-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 2;
+      height: 2px;
+      pointer-events: none;
+      background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #8b83ef));
+      transform-origin: left;
+      transform: scaleX(var(--reading-progress, 0))
     }
 
     a {
@@ -267,12 +284,26 @@
     }
 
     .relay-flow {
+      --relay-color: var(--accent);
+      --relay-tint: color-mix(in srgb, var(--relay-color) 13%, var(--surface));
       container-type: inline-size;
-      background: var(--surface);
+      background: radial-gradient(ellipse at 50% 54%, var(--relay-tint), transparent 72%), var(--surface);
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: clamp(16px, 2.6vw, 24px);
       box-shadow: 0 12px 32px rgb(0 0 0 / 6%)
+    }
+
+    .relay-flow[data-channel="1"] {
+      --relay-color: light-dark(#187549, #63d593)
+    }
+
+    .relay-flow[data-channel="2"] {
+      --relay-color: light-dark(#6054a7, #b3a4ff)
+    }
+
+    .relay-flow[data-channel="3"] {
+      --relay-color: light-dark(#1b669f, #78c5ff)
     }
 
     .relay-flow h2 {
@@ -369,14 +400,18 @@
 
     .relay-inputs button:hover,
     .relay-inputs button[aria-pressed="true"],
-    .relay-action.is-active {
-      border-color: var(--accent);
-      background: var(--accent-soft)
+    .relay-flow[data-phase="delivered"] .relay-action.is-active {
+      border-color: var(--relay-color);
+      background: var(--relay-tint)
     }
 
     .relay-inputs button[aria-pressed="true"] .relay-icon,
-    .relay-action.is-active .relay-icon {
-      color: var(--accent)
+    .relay-flow[data-phase="delivered"] .relay-action.is-active .relay-icon {
+      color: var(--relay-color)
+    }
+
+    .relay-lane {
+      position: relative
     }
 
     .relay-wires {
@@ -395,18 +430,36 @@
     }
 
     .relay-wires .relay-route {
-      stroke: color-mix(in srgb, var(--accent) 68%, var(--line));
+      stroke: color-mix(in srgb, var(--relay-color) 36%, var(--line));
       stroke-width: 1.75
     }
 
-    .relay-wires .relay-packet {
-      stroke: var(--accent);
-      stroke-width: 3;
-      stroke-dasharray: 11 100;
-      stroke-dashoffset: 11
+    .relay-wires .relay-trail {
+      stroke: var(--relay-color);
+      stroke-width: 2;
+      stroke-dasharray: 0 100
+    }
+
+    .relay-token {
+      position: absolute;
+      inset: 0 auto auto 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: var(--relay-color);
+      color: var(--bg);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--relay-color) 18%, transparent),
+        0 0 14px color-mix(in srgb, var(--relay-color) 38%, transparent);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none
     }
 
     .relay-hub {
+      position: relative;
       display: flex;
       width: max-content;
       max-width: 100%;
@@ -414,13 +467,13 @@
       align-items: center;
       gap: 11px;
       padding: 9px 16px;
-      border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+      border: 1px solid color-mix(in srgb, var(--relay-color) 45%, var(--line));
       border-radius: 13px;
-      background: color-mix(in srgb, var(--accent-soft) 64%, var(--surface))
+      background: var(--relay-tint)
     }
 
     .relay-hub .relay-icon {
-      color: var(--accent);
+      color: var(--relay-color);
       font-size: 23px
     }
 
@@ -435,23 +488,101 @@
       font-size: 12px
     }
 
-    .relay-hub.is-processing {
-      border-color: var(--accent);
-      background: var(--accent-soft)
+    .relay-hub::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border: 1px solid var(--relay-color);
+      border-radius: inherit;
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .relay-meter {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      color: var(--relay-color)
+    }
+
+    .relay-meter i {
+      width: 3px;
+      height: 11px;
+      border-radius: 2px;
+      background: currentColor;
+      opacity: .45;
+      transform: scaleY(.35)
+    }
+
+    .relay-flow[data-phase="routing"] .relay-hub {
+      border-color: var(--relay-color)
     }
 
     .relay-result {
       display: flex;
       align-items: center;
+      gap: 9px;
       min-height: calc(2.7em + 18px);
       margin: 12px 0 0;
       padding: 9px 11px;
-      border-left: 2px solid var(--accent);
+      border-left: 2px solid var(--relay-color);
       border-radius: 0 8px 8px 0;
       background: var(--bg);
       color: var(--muted);
       font-size: 13px;
       line-height: 1.35
+    }
+
+    .relay-result .relay-icon {
+      color: var(--relay-color);
+      font-size: 17px
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .relay-inputs button,
+      .relay-action,
+      .relay-hub {
+        transition: background-color 180ms ease, border-color 180ms ease
+      }
+
+      .relay-flow[data-phase="routing"] .relay-hub::after {
+        animation: relay-ring 520ms ease-out both
+      }
+
+      .relay-flow[data-phase="routing"] .relay-meter i {
+        animation: relay-meter 400ms ease-in-out var(--meter-delay, 0ms) both
+      }
+
+      .relay-meter i:nth-child(2) { --meter-delay: 45ms }
+      .relay-meter i:nth-child(3) { --meter-delay: 90ms }
+
+      .relay-flow[data-phase="delivered"] .relay-action.is-active {
+        animation: relay-arrive 410ms cubic-bezier(.16, 1, .3, 1) both
+      }
+
+      .relay-flow[data-phase="delivered"] .relay-result > span {
+        animation: relay-answer 280ms ease-out both
+      }
+    }
+
+    @keyframes relay-ring {
+      from { opacity: .65; transform: scale(1) }
+      to { opacity: 0; transform: scale(1.14) }
+    }
+
+    @keyframes relay-meter {
+      50% { opacity: 1; transform: scaleY(1) }
+    }
+
+    @keyframes relay-arrive {
+      from { box-shadow: 0 0 0 3px color-mix(in srgb, var(--relay-color) 24%, transparent); transform: scale(.96) }
+      55% { transform: scale(1.025) }
+      to { box-shadow: 0 0 0 7px transparent; transform: scale(1) }
+    }
+
+    @keyframes relay-answer {
+      from { opacity: .3; transform: translateY(4px) }
+      to { opacity: 1; transform: translateY(0) }
     }
 
     section {
@@ -688,6 +819,55 @@
       font-family: var(--mono)
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .reading-progress {
+        display: none
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+      .btn,
+      .proj,
+      .row {
+        transition: transform 250ms cubic-bezier(.2, .75, .25, 1), border-color 200ms ease, box-shadow 250ms ease
+      }
+
+      .btn:hover {
+        transform: translateY(-2px)
+      }
+
+      .proj:hover {
+        transform: translateY(-4px);
+        border-color: color-mix(in srgb, var(--line) 70%, var(--accent));
+        box-shadow: 0 10px 28px rgb(0 0 0 / 7%)
+      }
+
+      .row:hover {
+        transform: translateY(-2px);
+        border-color: color-mix(in srgb, var(--line) 70%, var(--accent))
+      }
+
+      nav ul a {
+        position: relative
+      }
+
+      nav ul a::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 -4px;
+        height: 1px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 220ms ease-out
+      }
+
+      nav ul a:hover::after,
+      nav ul a:focus-visible::after {
+        transform: scaleX(1)
+      }
+    }
+
     @media (max-width:820px) {
 
       .hero,
@@ -712,6 +892,8 @@
       }
     }
   </style>
+
+  <div class="reading-progress" aria-hidden="true"></div>
 
   <div class="wrap">
     <nav aria-label="Primary">
@@ -740,7 +922,7 @@
           <a class="btn" href="https://d19lnm6v45gal6.cloudfront.net/" target="_blank" rel="noopener">Relay</a>
         </div>
       </div>
-      <aside class="relay-flow" aria-labelledby="relay-call-title">
+      <aside class="relay-flow" data-phase="delivered" aria-labelledby="relay-call-title">
         <svg width="0" height="0" aria-hidden="true" style="position:absolute">
           <symbol id="relay-phone" viewBox="0 0 24 24">
             <path d="M4 3h4l2 5-2.5 2a14 14 0 0 0 6.5 6.5l2-2.5 5 2v4a1 1 0 0 1-1 1C10.6 20.6 3.4 13.4 3 4a1 1 0 0 1 1-1Z" />
@@ -764,6 +946,10 @@
           <symbol id="relay-chat" viewBox="0 0 24 24">
             <path d="M21 16a2 2 0 0 1-2 2H9l-5 3v-3a2 2 0 0 1-1-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z" />
             <path d="M8 11h.01m4 0h.01m4 0h.01" stroke-width="2.5" />
+          </symbol>
+          <symbol id="relay-envelope" viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m4 7 8 6 8-6" />
           </symbol>
           <!-- WhatsApp mark from Simple Icons, https://simpleicons.org/?q=whatsapp -->
           <symbol id="relay-whatsapp" viewBox="0 0 24 24">
@@ -790,25 +976,32 @@
               Email
             </button></li>
         </ul>
-        <svg class="relay-wires relay-incoming" viewBox="0 0 600 42" preserveAspectRatio="none" aria-hidden="true">
-          <path class="relay-wire" d="M75 0v10q0 10 12 10h201q12 0 12 12v10" />
-          <path class="relay-wire" d="M225 0v10q0 10 12 10h51q12 0 12 12v10" />
-          <path class="relay-wire" d="M375 0v10q0 10-12 10h-51q-12 0-12 12v10" />
-          <path class="relay-wire" d="M525 0v10q0 10-12 10h-201q-12 0-12 12v10" />
-          <path class="relay-route" d="M75 0v10q0 10 12 10h201q12 0 12 12v10" />
-          <path class="relay-packet" pathLength="100" />
-        </svg>
+        <div class="relay-lane relay-incoming" aria-hidden="true">
+          <svg class="relay-wires" viewBox="0 0 600 42" preserveAspectRatio="none">
+            <path class="relay-wire" d="M75 0v10q0 10 12 10h201q12 0 12 12v10" />
+            <path class="relay-wire" d="M225 0v10q0 10 12 10h51q12 0 12 12v10" />
+            <path class="relay-wire" d="M375 0v10q0 10-12 10h-51q-12 0-12 12v10" />
+            <path class="relay-wire" d="M525 0v10q0 10-12 10h-201q-12 0-12 12v10" />
+            <path class="relay-route" d="M75 0v10q0 10 12 10h201q12 0 12 12v10" />
+            <path class="relay-trail" pathLength="100" />
+          </svg>
+          <div class="relay-token"><svg class="relay-icon"><use href="#relay-phone" /></svg></div>
+        </div>
         <div class="relay-hub">
           <svg class="relay-icon" aria-hidden="true"><use href="#relay-inbox" /></svg>
           <div><strong>Relay</strong><small>Unified inbox</small></div>
+          <span class="relay-meter" aria-hidden="true"><i></i><i></i><i></i></span>
         </div>
-        <svg class="relay-wires relay-outgoing" viewBox="0 0 600 42" preserveAspectRatio="none" aria-hidden="true">
-          <path class="relay-wire" d="M300 0v10q0 10-12 10H112q-12 0-12 12v10" />
-          <path class="relay-wire" d="M300 0v42" />
-          <path class="relay-wire" d="M300 0v10q0 10 12 10h176q12 0 12 12v10" />
-          <path class="relay-route" d="M300 0v42" />
-          <path class="relay-packet" pathLength="100" />
-        </svg>
+        <div class="relay-lane relay-outgoing" aria-hidden="true">
+          <svg class="relay-wires" viewBox="0 0 600 42" preserveAspectRatio="none">
+            <path class="relay-wire" d="M300 0v10q0 10-12 10H112q-12 0-12 12v10" />
+            <path class="relay-wire" d="M300 0v42" />
+            <path class="relay-wire" d="M300 0v10q0 10 12 10h176q12 0 12 12v10" />
+            <path class="relay-route" d="M300 0v42" />
+            <path class="relay-trail" pathLength="100" />
+          </svg>
+          <div class="relay-token"><svg class="relay-icon"><use href="#relay-calendar" /></svg></div>
+        </div>
         <ul class="relay-outputs" aria-label="How Relay handles messages" role="list">
           <li><div class="relay-action">
               <svg class="relay-icon" aria-hidden="true"><use href="#relay-reply" /></svg>Reply
@@ -820,7 +1013,10 @@
               <svg class="relay-icon" aria-hidden="true"><use href="#relay-headset" /></svg>Hand off
             </div></li>
         </ul>
-        <p class="relay-result">Book an appointment in Google Calendar.</p>
+        <p class="relay-result">
+          <svg class="relay-icon" aria-hidden="true"><use href="#relay-calendar" /></svg>
+          <span>Book an appointment in Google Calendar.</span>
+        </p>
       </aside>
     </header>
   </div>
@@ -1055,22 +1251,23 @@
       const flow = document.querySelector('.relay-flow');
       const channels = [...flow.querySelectorAll('.relay-inputs button')];
       const actions = [...flow.querySelectorAll('.relay-action')];
-      const hub = flow.querySelector('.relay-hub');
-      const result = flow.querySelector('.relay-result');
-      const incoming = getWires('.relay-incoming');
-      const outgoing = getWires('.relay-outgoing');
+      const result = flow.querySelector('.relay-result span');
+      const resultIcon = flow.querySelector('.relay-result use');
+      const incoming = getLane('.relay-incoming');
+      const outgoing = getLane('.relay-outgoing');
+      const lanes = [incoming, outgoing];
       const motion = matchMedia('(prefers-reduced-motion: reduce)');
       const routes = [
-        { channel: 0, action: 1, detail: 'Book an appointment in Google Calendar.' },
-        { channel: 1, action: 0, detail: 'Answer a question on WhatsApp.' },
-        { channel: 2, action: 0, detail: 'Use the knowledge base to answer a web chat.' },
-        { channel: 3, action: 0, detail: 'Reply to an email thread.' },
-        { channel: 0, action: 2, detail: 'Brief staff before transferring the caller.' }
+        { channel: 0, action: 1, message: '“Can I book an appointment?”', result: 'Booked through Google Calendar.' },
+        { channel: 1, action: 0, message: '“Are you open on Saturday?”', result: 'Answered from the knowledge base.' },
+        { channel: 2, action: 0, message: '“Where can I find pricing?”', result: 'Answered in web chat.' },
+        { channel: 3, action: 0, message: '“Do you offer consultations?”', result: 'Replied in the same email thread.' },
+        { channel: 0, action: 2, message: '“Can I speak to someone?”', result: 'Briefed staff before the transfer.' }
       ];
-      const routeDuration = 3400;
+      const routeDuration = 4000;
       const duration = routes.length * routeDuration;
-      const incomingDuration = 950;
-      const outgoingStart = 1300;
+      const incomingDuration = 1050;
+      const outgoingStart = 1560;
       const outgoingDuration = 950;
       let selected = -1;
       let position = 0;
@@ -1078,48 +1275,90 @@
       let frame = 0;
       let inView = false;
 
-      function getWires(selector) {
-        const group = flow.querySelector(selector);
+      function getLane(selector) {
+        const lane = flow.querySelector(selector);
         return {
-          paths: [...group.querySelectorAll('.relay-wire')],
-          route: group.querySelector('.relay-route'),
-          packet: group.querySelector('.relay-packet')
+          svg: lane.querySelector('.relay-wires'),
+          paths: [...lane.querySelectorAll('.relay-wire')],
+          route: lane.querySelector('.relay-route'),
+          trail: lane.querySelector('.relay-trail'),
+          token: lane.querySelector('.relay-token'),
+          tokenIcon: lane.querySelector('.relay-token use'),
+          progress: -1
         };
       }
 
-      function highlight(wires, index) {
-        const path = wires.paths[index].getAttribute('d');
-        wires.route.setAttribute('d', path);
-        wires.packet.setAttribute('d', path);
+      function selectLane(lane, index, icon) {
+        const path = lane.paths[index].getAttribute('d');
+        lane.route.setAttribute('d', path);
+        lane.trail.setAttribute('d', path);
+        lane.tokenIcon.setAttribute('href', icon);
+        lane.length = lane.route.getTotalLength();
+        lane.progress = -1;
       }
 
-      function showRoute(index) {
+      function selectRoute(index) {
         const route = routes[index];
+        flow.dataset.channel = route.channel;
         channels.forEach(function (channel, channelIndex) {
           channel.setAttribute('aria-pressed', String(channelIndex === route.channel));
         });
         actions.forEach(function (action, actionIndex) {
           action.classList.toggle('is-active', actionIndex === route.action);
         });
-        highlight(incoming, route.channel);
-        highlight(outgoing, route.action);
-        result.textContent = route.detail;
+        const channelIcon = channels[route.channel].querySelector('use')?.getAttribute('href') ?? '#relay-envelope';
+        const actionIcon = actions[route.action].querySelector('use').getAttribute('href');
+        selectLane(incoming, route.channel, channelIcon);
+        selectLane(outgoing, route.action, actionIcon);
         selected = index;
       }
 
-      function movePacket(packet, progress) {
+      function movePacket(lane, progress) {
         const fraction = Math.max(0, Math.min(1, progress));
-        packet.style.strokeDashoffset = 11 - 111 * fraction;
+        if (fraction === lane.progress) return;
+        lane.progress = fraction;
+        const eased = fraction * fraction * (3 - 2 * fraction);
+        lane.trail.style.strokeDasharray = (eased * 100) + ' 100';
+        const opacity = Math.min(fraction * 8, (1 - fraction) * 8, 1);
+        lane.token.style.opacity = opacity;
+        if (opacity > 0) {
+          const point = lane.route.getPointAtLength(eased * lane.length);
+          lane.token.style.transform =
+            `translate(${point.x * lane.scaleX}px, ${point.y * lane.scaleY}px) translate(-50%, -50%)`;
+        }
       }
 
       function render() {
         const index = Math.floor(position / routeDuration);
-        if (index !== selected) showRoute(index);
+        const routeChanged = index !== selected;
+        if (routeChanged) selectRoute(index);
 
-        const elapsed = motion.matches ? 0 : position % routeDuration;
-        movePacket(incoming.packet, elapsed / incomingDuration);
-        movePacket(outgoing.packet, (elapsed - outgoingStart) / outgoingDuration);
-        hub.classList.toggle('is-processing', elapsed >= incomingDuration && elapsed < outgoingStart);
+        const elapsed = motion.matches ? routeDuration : position % routeDuration;
+        let phase = 'incoming';
+        if (elapsed >= outgoingStart + outgoingDuration) phase = 'delivered';
+        else if (elapsed >= outgoingStart) phase = 'outgoing';
+        else if (elapsed >= incomingDuration) phase = 'routing';
+
+        if (routeChanged || flow.dataset.phase !== phase) {
+          flow.dataset.phase = phase;
+          const delivered = phase === 'delivered';
+          const icon = delivered ? outgoing.tokenIcon : incoming.tokenIcon;
+          resultIcon.setAttribute('href', icon.getAttribute('href'));
+          result.textContent = delivered ? routes[index].result : routes[index].message;
+        }
+
+        movePacket(incoming, elapsed / incomingDuration);
+        movePacket(outgoing, (elapsed - outgoingStart) / outgoingDuration);
+      }
+
+      function sizeLanes() {
+        lanes.forEach(function (lane) {
+          const box = lane.svg.getBoundingClientRect();
+          lane.scaleX = box.width / lane.svg.viewBox.baseVal.width;
+          lane.scaleY = box.height / lane.svg.viewBox.baseVal.height;
+          lane.progress = -1;
+        });
+        render();
       }
 
       function tick(time) {
@@ -1160,7 +1399,63 @@
         render();
       });
       document.addEventListener('visibilitychange', updatePlayback);
-      render();
+
+      sizeLanes();
+      const resize = new ResizeObserver(sizeLanes);
+      lanes.forEach(function (lane) { resize.observe(lane.svg); });
+    })();
+
+    (function () {
+      const motion = matchMedia('(prefers-reduced-motion: reduce)');
+      const progress = document.querySelector('.reading-progress');
+      const hero = [...document.querySelectorAll('.hero > div > *, .hero > .relay-flow')];
+      const sections = document.querySelectorAll('.sec-head, .proj, .job, .stack > div, .edu, .contact > div:first-child, .contact .row');
+      const animations = new Set();
+      let progressFrame = 0;
+
+      function updateProgress() {
+        progressFrame = 0;
+        const available = document.documentElement.scrollHeight - innerHeight;
+        const fraction = available > 0 ? Math.min(1, Math.max(0, scrollY / available)) : 0;
+        progress.style.setProperty('--reading-progress', fraction);
+      }
+
+      function scheduleProgress() {
+        if (!motion.matches && !progressFrame) progressFrame = requestAnimationFrame(updateProgress);
+      }
+
+      const reveal = new IntersectionObserver(function (entries) {
+        entries.filter(function (entry) { return entry.isIntersecting; }).forEach(function (entry, index) {
+          const element = entry.target;
+          reveal.unobserve(element);
+          if (motion.matches) return;
+
+          const heroIndex = hero.indexOf(element);
+          const delay = heroIndex >= 0 ? heroIndex * 55 : Math.min(index, 3) * 55;
+          const motionFrames = [
+            { opacity: .12, transform: `translateY(${heroIndex >= 0 ? 18 : 14}px)` },
+            { opacity: 1, transform: 'translateY(0)' }
+          ];
+          const animation = element.animate(motionFrames, {
+            duration: 540, delay, easing: 'cubic-bezier(.18, .72, .25, 1)', fill: 'backwards'
+          });
+          animations.add(animation);
+          animation.onfinish = animation.oncancel = function () { animations.delete(animation); };
+        });
+      }, { rootMargin: '0px 0px 28px', threshold: .05 });
+
+      [...hero, ...sections].forEach(function (element) { reveal.observe(element); });
+      addEventListener('scroll', scheduleProgress, { passive: true });
+      addEventListener('resize', scheduleProgress);
+      addEventListener('pageshow', scheduleProgress);
+      motion.addEventListener('change', function () {
+        if (motion.matches) {
+          animations.forEach(function (animation) { animation.cancel(); });
+        } else {
+          scheduleProgress();
+        }
+      });
+      scheduleProgress();
     })();
   </script>
 </body>
