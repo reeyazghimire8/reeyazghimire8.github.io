@@ -274,21 +274,9 @@
       box-shadow: 0 12px 32px rgb(0 0 0 / 6%)
     }
 
-    .trace header {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 8px
-    }
-
     .trace h2 {
       font-size: clamp(20px, 5.5vw, 24px);
       text-wrap: wrap
-    }
-
-    .trace-example {
-      margin: 0 0 4px;
-      font-size: 10px
     }
 
     .trace-icon {
@@ -301,22 +289,6 @@
       stroke-width: 1.7;
       stroke-linecap: round;
       stroke-linejoin: round
-    }
-
-    .trace-control {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      min-width: 72px;
-      min-height: 44px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 0 6px;
-      background: var(--bg);
-      color: var(--ink);
-      font: 500 13px var(--body);
-      cursor: pointer
     }
 
     .trace-sample {
@@ -412,7 +384,6 @@
       font-size: 19px
     }
 
-    .trace-control:hover,
     .trace-steps button:hover,
     .trace-steps button[aria-pressed="true"] {
       border-color: var(--accent);
@@ -772,30 +743,12 @@
             <rect x="3" y="5" width="18" height="14" rx="2" />
             <path d="m4 7 8 6 8-6" />
           </symbol>
-          <symbol id="relay-play" viewBox="0 0 24 24">
-            <path d="m8 5 12 7-12 7Z" fill="currentColor" stroke="none" />
-          </symbol>
-          <symbol id="relay-pause" viewBox="0 0 24 24">
-            <path d="M9 5v14m6-14v14" stroke-width="3" />
-          </symbol>
-          <symbol id="relay-replay" viewBox="0 0 24 24">
-            <path d="M4 11a8 8 0 1 1 1.5 5.5M4 5v6h6" />
-          </symbol>
           <!-- WhatsApp mark from Simple Icons, https://simpleicons.org/?q=whatsapp -->
           <symbol id="relay-whatsapp" viewBox="0 0 24 24">
             <path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
           </symbol>
         </svg>
-        <header>
-          <div>
-            <p class="label trace-example">Example</p>
-            <h2 id="relay-call-title">Inside a Relay call</h2>
-          </div>
-          <button type="button" class="trace-control" aria-label="Play example call" disabled>
-            <svg class="trace-icon" aria-hidden="true"><use href="#relay-play" /></svg>
-            <span>Play</span>
-          </button>
-        </header>
+        <h2 id="relay-call-title">Inside a Relay call</h2>
         <div class="trace-sample">
           <div class="trace-caption">
             <p class="label trace-speaker">Caller</p>
@@ -1068,7 +1021,6 @@
     (function () {
       const trace = document.querySelector('.trace');
       const stages = [...trace.querySelectorAll('.trace-steps button')];
-      const control = trace.querySelector('.trace-control');
       const caption = trace.querySelector('.trace-caption');
       const speaker = caption.querySelector('.trace-speaker');
       const message = caption.querySelector('.trace-message');
@@ -1083,6 +1035,7 @@
       let position = 0;
       let startedAt = 0;
       let frame = 0;
+      let inView = false;
       let width = 0;
       let height = 0;
       const amplitudes = [
@@ -1123,8 +1076,7 @@
       }
 
       function render() {
-        const step = Math.floor(position / stageDuration);
-        const index = Math.min(step, stages.length - 1);
+        const index = Math.floor(position / stageDuration);
         const changed = index !== selected;
 
         if (changed) {
@@ -1141,75 +1093,53 @@
           }
         }
 
-        const elapsed = motion.matches ? step * stageDuration : position;
+        const elapsed = motion.matches ? index * stageDuration : position;
         progress.style.setProperty('--trace-progress', elapsed / duration);
         if (changed || !motion.matches) drawSignal(frame && !motion.matches ? position : 0);
       }
 
-      function updateControl() {
-        const action = frame ? 'Pause' : position < duration ? 'Play' : 'Replay';
-        control.querySelector('span').textContent = action;
-        control.querySelector('use').setAttribute('href', '#relay-' + action.toLowerCase());
-        control.setAttribute('aria-label', action + ' example call');
-      }
-
       function tick(time) {
-        position = Math.max(0, Math.min(time - startedAt, duration));
-        frame = position < duration ? requestAnimationFrame(tick) : 0;
-        render();
-        if (!frame) updateControl();
-      }
-
-      function pause() {
-        cancelAnimationFrame(frame);
-        frame = 0;
-        updateControl();
-      }
-
-      function play() {
-        if (position === duration) position = 0;
-        startedAt = performance.now() - position;
+        position = Math.max(0, time - startedAt) % duration;
         frame = requestAnimationFrame(tick);
-        updateControl();
+        render();
+      }
+
+      function updatePlayback() {
+        const shouldPlay = inView && !document.hidden && !motion.matches;
+        if (shouldPlay === Boolean(frame)) return;
+        if (shouldPlay) {
+          startedAt = performance.now() - position;
+          frame = requestAnimationFrame(tick);
+        } else {
+          cancelAnimationFrame(frame);
+          frame = 0;
+        }
       }
 
       const observer = new IntersectionObserver(function ([entry]) {
-        if (!motion.matches && entry.intersectionRatio >= .45) {
-          observer.disconnect();
-          play();
-        }
+        inView = entry.intersectionRatio >= .45;
+        updatePlayback();
       }, { threshold: .45 });
-
-      control.disabled = false;
-      control.addEventListener('click', function () {
-        observer.disconnect();
-        if (frame) pause();
-        else play();
-      });
+      observer.observe(trace);
 
       stages.forEach(function (stage, index) {
         stage.disabled = false;
         stage.addEventListener('click', function () {
-          observer.disconnect();
           position = index * stageDuration;
-          pause();
+          startedAt = performance.now() - position;
           render();
         });
       });
 
-      if (!motion.matches) observer.observe(trace);
       motion.addEventListener('change', function () {
+        updatePlayback();
         if (motion.matches) {
-          observer.disconnect();
-          pause();
           caption.getAnimations().forEach(function (animation) { animation.cancel(); });
           render();
           drawSignal(0);
         }
       });
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden && frame) pause();
-      });
+      document.addEventListener('visibilitychange', updatePlayback);
 
       if (context) {
         sizeSignal();
