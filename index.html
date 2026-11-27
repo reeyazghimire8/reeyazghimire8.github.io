@@ -266,20 +266,20 @@
       border-color: var(--accent)
     }
 
-    .trace {
+    .relay-flow {
+      container-type: inline-size;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 20px;
-      padding: clamp(18px, 3vw, 24px);
+      padding: clamp(16px, 2.6vw, 24px);
       box-shadow: 0 12px 32px rgb(0 0 0 / 6%)
     }
 
-    .trace h2 {
-      font-size: clamp(20px, 5.5vw, 24px);
-      text-wrap: wrap
+    .relay-flow h2 {
+      font-size: clamp(21px, 5vw, 26px)
     }
 
-    .trace-icon {
+    .relay-icon {
       display: block;
       flex: none;
       width: 1em;
@@ -291,144 +291,162 @@
       stroke-linejoin: round
     }
 
-    .trace-sample {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 8px 12px;
-      margin: 16px 0 10px;
-      padding: 14px;
-      border: 1px solid color-mix(in srgb, var(--accent) 17%, var(--line));
-      border-radius: 14px;
-      background-color: color-mix(in srgb, var(--accent-soft) 64%, var(--surface));
-      background-image: radial-gradient(color-mix(in srgb, var(--accent) 14%, transparent) 1px, transparent 1px);
-      background-size: 14px 14px
-    }
-
-    .trace-speaker {
-      margin: 0;
-      color: var(--accent);
+    .relay-flow-label {
+      margin: 16px 0 8px;
       font-size: 11px
     }
 
-    .trace-message {
-      margin: 3px 0 0;
-      min-height: 2.6em;
-      font-size: 17px;
-      font-weight: 500;
-      line-height: 1.3
-    }
-
-    .trace-scene-icon {
+    .relay-inputs,
+    .relay-outputs {
       display: grid;
-      place-items: center;
-      width: 42px;
-      height: 42px;
-      border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
-      border-radius: 12px;
-      background: var(--surface);
-      color: var(--accent);
-      font-size: 22px
-    }
-
-    .signal {
-      display: block;
-      grid-column: 1 / -1;
-      width: 100%;
-      height: 48px;
-      background: linear-gradient(var(--line), var(--line)) center / 100% 1px no-repeat;
-      color: var(--accent)
-    }
-
-    .trace-progress {
-      grid-column: 1 / -1;
-      overflow: hidden;
-      height: 3px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--accent) 18%, var(--line))
-    }
-
-    .trace-progress::before {
-      content: "";
-      display: block;
-      height: 100%;
-      background: var(--accent);
-      transform-origin: left;
-      transform: scaleX(var(--trace-progress, 0))
-    }
-
-    .trace-steps {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 5px;
       list-style: none;
       margin: 0;
       padding: 0
     }
 
-    .trace-steps button {
+    .relay-inputs {
+      grid-template-columns: repeat(5, minmax(0, 1fr))
+    }
+
+    .relay-outputs {
+      grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+
+    .relay-inputs li,
+    .relay-outputs li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      min-width: 0;
+      padding-inline: 2px
+    }
+
+    .relay-inputs li {
+      padding-inline: 1px
+    }
+
+    .relay-inputs button,
+    .relay-action {
       display: grid;
       justify-items: center;
+      align-content: start;
       gap: 5px;
       width: 100%;
-      padding: 7px 2px;
+      min-height: 52px;
+      margin: 0;
+      padding: 8px 1px;
       border: 1px solid var(--line);
       border-radius: 10px;
-      background: var(--surface);
-      color: var(--muted);
-      font: 500 12px var(--body);
+      background: var(--bg);
+      color: var(--ink);
+      font: 500 clamp(10px, 2.8vw, 12px)/1.1 var(--body);
+      text-align: center
+    }
+
+    .relay-inputs button {
+      grid-template-columns: minmax(0, 1fr);
+      padding-inline: 0;
+      font-size: clamp(9.5px, 3.55cqi, 12px);
+      overflow-wrap: anywhere;
       cursor: pointer
     }
 
-    .trace-steps .trace-icon {
-      font-size: 19px
+    .relay-inputs button .relay-icon,
+    .relay-action .relay-icon {
+      color: var(--muted);
+      font-size: 18px
     }
 
-    .trace-steps button:hover,
-    .trace-steps button[aria-pressed="true"] {
+    .relay-inputs small {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.15
+    }
+
+    .relay-inputs button:hover,
+    .relay-inputs button[aria-pressed="true"],
+    .relay-action.is-active {
       border-color: var(--accent);
-      color: var(--accent)
-    }
-
-    .trace-steps button[aria-pressed="true"] {
       background: var(--accent-soft)
     }
 
-    .trace-inbox {
-      border-top: 1px solid var(--line);
-      margin-top: 16px;
-      padding-top: 14px
+    .relay-inputs button[aria-pressed="true"] .relay-icon,
+    .relay-action.is-active .relay-icon {
+      color: var(--accent)
     }
 
-    .trace-inbox h3 {
-      margin-bottom: 9px;
-      font-weight: 500
+    .relay-wires {
+      display: block;
+      width: 100%;
+      height: 42px;
+      overflow: visible
     }
 
-    .trace-channels {
+    .relay-wires path {
+      fill: none;
+      stroke: color-mix(in srgb, var(--muted) 26%, var(--line));
+      stroke-width: 1.25;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke
+    }
+
+    .relay-wires .relay-route {
+      stroke: color-mix(in srgb, var(--accent) 68%, var(--line));
+      stroke-width: 1.75
+    }
+
+    .relay-wires .relay-packet {
+      stroke: var(--accent);
+      stroke-width: 3;
+      stroke-dasharray: 11 100;
+      stroke-dashoffset: 11
+    }
+
+    .relay-hub {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      list-style: none;
-      margin: 0;
-      padding: 0
+      width: max-content;
+      max-width: 100%;
+      margin-inline: auto;
+      align-items: center;
+      gap: 11px;
+      padding: 9px 16px;
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+      border-radius: 13px;
+      background: color-mix(in srgb, var(--accent-soft) 64%, var(--surface))
     }
 
-    .trace-channels li {
-      display: inline-flex;
+    .relay-hub .relay-icon {
+      color: var(--accent);
+      font-size: 23px
+    }
+
+    .relay-hub strong,
+    .relay-hub small {
+      display: block;
+      line-height: 1.24
+    }
+
+    .relay-hub small {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .relay-hub.is-processing {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .relay-result {
+      display: flex;
       align-items: center;
-      gap: 7px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
+      min-height: calc(2.7em + 18px);
+      margin: 12px 0 0;
+      padding: 9px 11px;
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
       background: var(--bg);
-      padding: 5px 8px;
+      color: var(--muted);
       font-size: 13px;
       line-height: 1.35
-    }
-
-    .trace-channels .trace-icon {
-      color: var(--accent);
-      font-size: 16px
     }
 
     section {
@@ -717,7 +735,7 @@
           <a class="btn" href="https://d19lnm6v45gal6.cloudfront.net/" target="_blank" rel="noopener">Relay</a>
         </div>
       </div>
-      <aside class="trace" aria-labelledby="relay-call-title">
+      <aside class="relay-flow" aria-labelledby="relay-call-title">
         <svg width="0" height="0" aria-hidden="true" style="position:absolute">
           <symbol id="relay-phone" viewBox="0 0 24 24">
             <path d="M4 3h4l2 5-2.5 2a14 14 0 0 0 6.5 6.5l2-2.5 5 2v4a1 1 0 0 1-1 1C10.6 20.6 3.4 13.4 3 4a1 1 0 0 1 1-1Z" />
@@ -726,9 +744,16 @@
             <rect x="3" y="5" width="18" height="16" rx="2" />
             <path d="M7 3v4m10-4v4M3 10h18m-13 5 2.5 2.5L16 13" />
           </symbol>
-          <symbol id="relay-shield" viewBox="0 0 24 24">
-            <path d="M12 3c2.3 1.8 5 2.7 8 3v5c0 4.6-3 7.9-8 10-5-2.1-8-5.4-8-10V6c3-.3 5.7-1.2 8-3Z" />
-            <path d="m8.5 12 2.5 2.5 4.5-5" />
+          <symbol id="relay-inbox" viewBox="0 0 24 24">
+            <path d="M3 12 6 5h12l3 7v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6Z" />
+            <path d="M3 12h5l2 3h4l2-3h5" />
+          </symbol>
+          <symbol id="relay-reply" viewBox="0 0 24 24">
+            <path d="m9 10-5 5 5 5m-5-5h10a5 5 0 0 0 5-5V5" />
+          </symbol>
+          <symbol id="relay-sms" viewBox="0 0 24 24">
+            <rect x="6" y="2.5" width="12" height="19" rx="2.5" />
+            <path d="M10 18.5h4M9 8h6m-6 3h4" />
           </symbol>
           <symbol id="relay-headset" viewBox="0 0 24 24">
             <path d="M4 13v-1a8 8 0 0 1 16 0v5a4 4 0 0 1-4 4h-4" />
@@ -748,45 +773,58 @@
             <path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
           </symbol>
         </svg>
-        <h2 id="relay-call-title">Inside a Relay call</h2>
-        <div class="trace-sample">
-          <div class="trace-caption">
-            <p class="label trace-speaker">Caller</p>
-            <p class="trace-message">“Can I book an appointment?”</p>
-          </div>
-          <div class="trace-scene-icon">
-            <svg class="trace-icon" aria-hidden="true"><use href="#relay-phone" /></svg>
-          </div>
-          <canvas class="signal" id="signal" aria-hidden="true"></canvas>
-          <div class="trace-progress" aria-hidden="true"></div>
+        <h2 id="relay-call-title">How Relay handles messages</h2>
+        <p class="label relay-flow-label">Incoming channels</p>
+        <ul class="relay-inputs" aria-label="Incoming channels" role="list">
+          <li><button type="button" aria-pressed="true" disabled>
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-phone" /></svg>Phone
+            </button></li>
+          <li><button type="button" aria-pressed="false" disabled>
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-whatsapp" /></svg>WhatsApp
+            </button></li>
+          <li><button type="button" aria-pressed="false" disabled>
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-chat" /></svg>Web chat
+            </button></li>
+          <li><button type="button" aria-pressed="false" disabled>
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-mail" /></svg>Email
+              <small>Gmail / Outlook</small>
+            </button></li>
+          <li><button type="button" aria-pressed="false" disabled>
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-sms" /></svg>SMS
+            </button></li>
+        </ul>
+        <svg class="relay-wires relay-incoming" viewBox="0 0 600 42" preserveAspectRatio="none" aria-hidden="true">
+          <path class="relay-wire" d="M60 0v10q0 10 12 10h216q12 0 12 12v10" />
+          <path class="relay-wire" d="M180 0v10q0 10 12 10h96q12 0 12 12v10" />
+          <path class="relay-wire" d="M300 0v42" />
+          <path class="relay-wire" d="M420 0v10q0 10-12 10h-96q-12 0-12 12v10" />
+          <path class="relay-wire" d="M540 0v10q0 10-12 10h-216q-12 0-12 12v10" />
+          <path class="relay-route" d="M60 0v10q0 10 12 10h216q12 0 12 12v10" />
+          <path class="relay-packet" pathLength="100" />
+        </svg>
+        <div class="relay-hub">
+          <svg class="relay-icon" aria-hidden="true"><use href="#relay-inbox" /></svg>
+          <div><strong>Relay</strong><small>Unified inbox</small></div>
         </div>
-        <ol class="trace-steps" aria-label="Call steps" role="list">
-          <li><button type="button" aria-label="Listen for an appointment request" aria-pressed="true" data-speaker="Caller"
-              data-message="“Can I book an appointment?”" disabled>
-              <svg class="trace-icon" aria-hidden="true"><use href="#relay-phone" /></svg>Listen
-            </button></li>
-          <li><button type="button" aria-label="Book in Google Calendar" aria-pressed="false" data-speaker="Google Calendar"
-              data-message="Appointment booked." disabled>
-              <svg class="trace-icon" aria-hidden="true"><use href="#relay-calendar" /></svg>Book
-            </button></li>
-          <li><button type="button" aria-label="Verify the reply against approved facts" aria-pressed="false" data-speaker="Relay"
-              data-message="Reply checked for accuracy." disabled>
-              <svg class="trace-icon" aria-hidden="true"><use href="#relay-shield" /></svg>Verify
-            </button></li>
-          <li><button type="button" aria-label="Handoff to staff after briefing them" aria-pressed="false" data-speaker="Optional handoff"
-              data-message="Staff briefed before transfer." disabled>
-              <svg class="trace-icon" aria-hidden="true"><use href="#relay-headset" /></svg>Handoff
-            </button></li>
-        </ol>
-        <div class="trace-inbox">
-          <h3 class="label">Unified inbox</h3>
-          <ul class="trace-channels" role="list">
-            <li><svg class="trace-icon" aria-hidden="true"><use href="#relay-phone" /></svg>Phone</li>
-            <li><svg class="trace-icon" aria-hidden="true"><use href="#relay-whatsapp" /></svg>WhatsApp</li>
-            <li><svg class="trace-icon" aria-hidden="true"><use href="#relay-chat" /></svg>Web chat</li>
-            <li><svg class="trace-icon" aria-hidden="true"><use href="#relay-mail" /></svg>Email (Gmail, Outlook)</li>
-          </ul>
-        </div>
+        <svg class="relay-wires relay-outgoing" viewBox="0 0 600 42" preserveAspectRatio="none" aria-hidden="true">
+          <path class="relay-wire" d="M300 0v10q0 10-12 10H112q-12 0-12 12v10" />
+          <path class="relay-wire" d="M300 0v42" />
+          <path class="relay-wire" d="M300 0v10q0 10 12 10h176q12 0 12 12v10" />
+          <path class="relay-route" d="M300 0v42" />
+          <path class="relay-packet" pathLength="100" />
+        </svg>
+        <ul class="relay-outputs" aria-label="How Relay handles messages" role="list">
+          <li><div class="relay-action">
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-reply" /></svg>Reply
+            </div></li>
+          <li><div class="relay-action is-active">
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-calendar" /></svg>Book
+            </div></li>
+          <li><div class="relay-action">
+              <svg class="relay-icon" aria-hidden="true"><use href="#relay-headset" /></svg>Hand off
+            </div></li>
+        </ul>
+        <p class="relay-result">Book an appointment in Google Calendar.</p>
       </aside>
     </header>
   </div>
@@ -1019,83 +1057,75 @@
     })();
 
     (function () {
-      const trace = document.querySelector('.trace');
-      const stages = [...trace.querySelectorAll('.trace-steps button')];
-      const caption = trace.querySelector('.trace-caption');
-      const speaker = caption.querySelector('.trace-speaker');
-      const message = caption.querySelector('.trace-message');
-      const sceneIcon = trace.querySelector('.trace-scene-icon use');
-      const progress = trace.querySelector('.trace-progress');
-      const signal = trace.querySelector('.signal');
-      const context = signal.getContext('2d');
+      const flow = document.querySelector('.relay-flow');
+      const channels = [...flow.querySelectorAll('.relay-inputs button')];
+      const actions = [...flow.querySelectorAll('.relay-action')];
+      const hub = flow.querySelector('.relay-hub');
+      const result = flow.querySelector('.relay-result');
+      const incoming = getWires('.relay-incoming');
+      const outgoing = getWires('.relay-outgoing');
       const motion = matchMedia('(prefers-reduced-motion: reduce)');
-      const stageDuration = 3000;
-      const duration = stages.length * stageDuration;
-      let selected = 0;
+      const routes = [
+        { channel: 0, action: 1, detail: 'Book an appointment in Google Calendar.' },
+        { channel: 1, action: 0, detail: 'Answer a question on WhatsApp.' },
+        { channel: 2, action: 0, detail: 'Use the knowledge base to answer a web chat.' },
+        { channel: 3, action: 0, detail: 'Reply to a Gmail or Outlook thread.' },
+        { channel: 4, action: 0, detail: 'Send a reply by SMS.' },
+        { channel: 0, action: 2, detail: 'Brief staff before transferring the caller.' }
+      ];
+      const routeDuration = 3400;
+      const duration = routes.length * routeDuration;
+      const incomingDuration = 950;
+      const outgoingStart = 1300;
+      const outgoingDuration = 950;
+      let selected = -1;
       let position = 0;
       let startedAt = 0;
       let frame = 0;
       let inView = false;
-      let width = 0;
-      let height = 0;
-      const amplitudes = [
-        .04, .08, .14, .32, .51, .36, .22, .08, .04, .11, .28, .45, .66, .48, .22, .08,
-        .05, .16, .31, .56, .82, .96, .73, .51, .25, .14, .07, .13, .33, .51, .63, .43,
-        .26, .12, .04, .06, .15, .31, .44, .28, .13, .07, .04
-      ];
-      const strengths = [1, .52, .4, .76];
 
-      function drawSignal(time) {
-        if (!context) return;
-        const spacing = width / amplitudes.length;
-        context.clearRect(0, 0, width, height);
-        context.lineWidth = Math.min(3, spacing * .48);
-
-        amplitudes.forEach(function (amplitude, index) {
-          const center = (index + .5) * spacing;
-          const pulse = time ? .72 + .28 * Math.sin(index * .48 - time / 135) : 1;
-          const halfHeight = Math.max(.6, amplitude * height * .42 * strengths[selected] * pulse);
-          context.globalAlpha = .48 + amplitude * .5;
-          context.beginPath();
-          context.moveTo(center, height / 2 - halfHeight);
-          context.lineTo(center, height / 2 + halfHeight);
-          context.stroke();
-        });
+      function getWires(selector) {
+        const group = flow.querySelector(selector);
+        return {
+          paths: [...group.querySelectorAll('.relay-wire')],
+          route: group.querySelector('.relay-route'),
+          packet: group.querySelector('.relay-packet')
+        };
       }
 
-      function sizeSignal() {
-        const scale = window.devicePixelRatio || 1;
-        width = signal.clientWidth;
-        height = signal.clientHeight;
-        signal.width = Math.round(width * scale);
-        signal.height = Math.round(height * scale);
-        context.setTransform(scale, 0, 0, scale, 0, 0);
-        context.lineCap = 'round';
-        context.strokeStyle = getComputedStyle(signal).color;
-        drawSignal(frame && !motion.matches ? position : 0);
+      function highlight(wires, index) {
+        const path = wires.paths[index].getAttribute('d');
+        wires.route.setAttribute('d', path);
+        wires.packet.setAttribute('d', path);
+      }
+
+      function showRoute(index) {
+        const route = routes[index];
+        channels.forEach(function (channel, channelIndex) {
+          channel.setAttribute('aria-pressed', String(channelIndex === route.channel));
+        });
+        actions.forEach(function (action, actionIndex) {
+          action.classList.toggle('is-active', actionIndex === route.action);
+        });
+        highlight(incoming, route.channel);
+        highlight(outgoing, route.action);
+        result.textContent = route.detail;
+        selected = index;
+      }
+
+      function movePacket(packet, progress) {
+        const fraction = Math.max(0, Math.min(1, progress));
+        packet.style.strokeDashoffset = 11 - 111 * fraction;
       }
 
       function render() {
-        const index = Math.floor(position / stageDuration);
-        const changed = index !== selected;
+        const index = Math.floor(position / routeDuration);
+        if (index !== selected) showRoute(index);
 
-        if (changed) {
-          stages[selected].setAttribute('aria-pressed', 'false');
-          selected = index;
-          const stage = stages[index];
-          stage.setAttribute('aria-pressed', 'true');
-          speaker.textContent = stage.dataset.speaker;
-          message.textContent = stage.dataset.message;
-          sceneIcon.setAttribute('href', stage.querySelector('use').getAttribute('href'));
-          if (!motion.matches) {
-            caption.animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }],
-              { duration: 200, easing: 'ease-out' });
-          }
-        }
-
-        const elapsed = motion.matches ? index * stageDuration : position;
-        progress.style.setProperty('--trace-progress', elapsed / duration);
-        if (changed || !motion.matches) drawSignal(frame && !motion.matches ? position : 0);
+        const elapsed = motion.matches ? 0 : position % routeDuration;
+        movePacket(incoming.packet, elapsed / incomingDuration);
+        movePacket(outgoing.packet, (elapsed - outgoingStart) / outgoingDuration);
+        hub.classList.toggle('is-processing', elapsed >= incomingDuration && elapsed < outgoingStart);
       }
 
       function tick(time) {
@@ -1120,12 +1150,12 @@
         inView = entry.intersectionRatio >= .45;
         updatePlayback();
       }, { threshold: .45 });
-      observer.observe(trace);
+      observer.observe(flow);
 
-      stages.forEach(function (stage, index) {
-        stage.disabled = false;
-        stage.addEventListener('click', function () {
-          position = index * stageDuration;
+      channels.forEach(function (channel, index) {
+        channel.disabled = false;
+        channel.addEventListener('click', function () {
+          position = routes.findIndex(function (route) { return route.channel === index; }) * routeDuration;
           startedAt = performance.now() - position;
           render();
         });
@@ -1133,19 +1163,10 @@
 
       motion.addEventListener('change', function () {
         updatePlayback();
-        if (motion.matches) {
-          caption.getAnimations().forEach(function (animation) { animation.cancel(); });
-          render();
-          drawSignal(0);
-        }
+        render();
       });
       document.addEventListener('visibilitychange', updatePlayback);
-
-      if (context) {
-        sizeSignal();
-        new ResizeObserver(sizeSignal).observe(signal);
-        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sizeSignal);
-      }
+      render();
     })();
   </script>
 </body>
