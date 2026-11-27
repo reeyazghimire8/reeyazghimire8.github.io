@@ -322,13 +322,13 @@
       padding: 0 0 0 23px
     }
 
-    .trace li {
+    .trace ol li {
       position: relative;
       font-size: 14px;
       line-height: 1.35
     }
 
-    .trace li::before {
+    .trace ol li::before {
       content: "";
       position: absolute;
       top: 5px;
@@ -341,7 +341,7 @@
       background: var(--surface)
     }
 
-    .trace li:not(:last-child)::after {
+    .trace ol li:not(:last-child)::after {
       content: "";
       position: absolute;
       inset: 14px auto -15px -19px;
@@ -349,17 +349,17 @@
       background: var(--line)
     }
 
-    .trace li strong {
+    .trace ol strong {
       font-weight: 500
     }
 
-    .trace li span {
+    .trace ol span {
       display: block;
       margin-top: 2px;
       color: var(--muted)
     }
 
-    .trace li code {
+    .trace ol code {
       font: 12px var(--mono);
       color: var(--accent)
     }
@@ -371,6 +371,35 @@
       margin-top: 6px;
       background: linear-gradient(var(--line), var(--line)) center / 100% 1px no-repeat;
       color: var(--accent)
+    }
+
+    .trace-inbox {
+      border-top: 1px solid var(--line);
+      margin-top: 16px;
+      padding-top: 14px
+    }
+
+    .trace-inbox h3 {
+      margin-bottom: 9px;
+      font-weight: 500
+    }
+
+    .trace-channels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .trace-channels li {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--bg);
+      padding: 3px 8px;
+      font-size: 13px;
+      line-height: 1.35
     }
 
     section {
@@ -675,6 +704,15 @@
           <li><strong>Check the reply</strong><span>Verify the response against approved facts.</span></li>
           <li><strong>Hand off when needed</strong><span>Brief staff before connecting the caller.</span></li>
         </ol>
+        <div class="trace-inbox">
+          <h3 class="label">Unified inbox</h3>
+          <ul class="trace-channels" role="list">
+            <li>Phone</li>
+            <li>WhatsApp</li>
+            <li>Web chat</li>
+            <li>Email (Gmail, Outlook)</li>
+          </ul>
+        </div>
       </aside>
     </header>
   </div>
@@ -709,7 +747,7 @@
             <li>A knowledge base combines vector and keyword search across websites, files, Google Drive and APIs.
               Publishing controls and factual guardrails govern what the agent can say, while rules handle call routing
               and business hours.</li>
-            <li>One inbox for six channels: calls, web chat, Gmail, Outlook, WhatsApp and SMS, with transcripts and
+            <li>One inbox for phone, WhatsApp, web chat, email (Gmail and Outlook) and SMS, with transcripts and
               summaries.</li>
             <li>Stripe usage-based credit billing and self-serve onboarding to a first test call in under 10 minutes.</li>
           </ul>
