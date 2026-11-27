@@ -305,7 +305,7 @@
     }
 
     .relay-inputs {
-      grid-template-columns: repeat(5, minmax(0, 1fr))
+      grid-template-columns: repeat(4, minmax(0, 1fr))
     }
 
     .relay-outputs {
@@ -345,7 +345,7 @@
     .relay-inputs button {
       grid-template-columns: minmax(0, 1fr);
       padding-inline: 0;
-      font-size: clamp(9.5px, 3.55cqi, 12px);
+      font-size: clamp(11px, 3.55cqi, 12px);
       overflow-wrap: anywhere;
       cursor: pointer
     }
@@ -356,10 +356,15 @@
       font-size: 18px
     }
 
-    .relay-inputs small {
-      color: var(--muted);
-      font-size: 9px;
-      line-height: 1.15
+    .relay-email-logos {
+      display: flex;
+      gap: 5px
+    }
+
+    .relay-email-logos img {
+      width: 20px;
+      height: 18px;
+      object-fit: contain
     }
 
     .relay-inputs button:hover,
@@ -751,10 +756,6 @@
           <symbol id="relay-reply" viewBox="0 0 24 24">
             <path d="m9 10-5 5 5 5m-5-5h10a5 5 0 0 0 5-5V5" />
           </symbol>
-          <symbol id="relay-sms" viewBox="0 0 24 24">
-            <rect x="6" y="2.5" width="12" height="19" rx="2.5" />
-            <path d="M10 18.5h4M9 8h6m-6 3h4" />
-          </symbol>
           <symbol id="relay-headset" viewBox="0 0 24 24">
             <path d="M4 13v-1a8 8 0 0 1 16 0v5a4 4 0 0 1-4 4h-4" />
             <rect x="3" y="12" width="5" height="6" rx="1.5" />
@@ -763,10 +764,6 @@
           <symbol id="relay-chat" viewBox="0 0 24 24">
             <path d="M21 16a2 2 0 0 1-2 2H9l-5 3v-3a2 2 0 0 1-1-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z" />
             <path d="M8 11h.01m4 0h.01m4 0h.01" stroke-width="2.5" />
-          </symbol>
-          <symbol id="relay-mail" viewBox="0 0 24 24">
-            <rect x="3" y="5" width="18" height="14" rx="2" />
-            <path d="m4 7 8 6 8-6" />
           </symbol>
           <!-- WhatsApp mark from Simple Icons, https://simpleicons.org/?q=whatsapp -->
           <symbol id="relay-whatsapp" viewBox="0 0 24 24">
@@ -785,21 +782,20 @@
           <li><button type="button" aria-pressed="false" disabled>
               <svg class="relay-icon" aria-hidden="true"><use href="#relay-chat" /></svg>Web chat
             </button></li>
-          <li><button type="button" aria-pressed="false" disabled>
-              <svg class="relay-icon" aria-hidden="true"><use href="#relay-mail" /></svg>Email
-              <small>Gmail / Outlook</small>
-            </button></li>
-          <li><button type="button" aria-pressed="false" disabled>
-              <svg class="relay-icon" aria-hidden="true"><use href="#relay-sms" /></svg>SMS
+          <li><button type="button" aria-label="Email via Gmail and Outlook" aria-pressed="false" disabled>
+              <span class="relay-email-logos" aria-hidden="true">
+                <img src="assets/relay-gmail.svg" width="20" height="18" alt="">
+                <img src="assets/relay-outlook.svg" width="20" height="18" alt="">
+              </span>
+              Email
             </button></li>
         </ul>
         <svg class="relay-wires relay-incoming" viewBox="0 0 600 42" preserveAspectRatio="none" aria-hidden="true">
-          <path class="relay-wire" d="M60 0v10q0 10 12 10h216q12 0 12 12v10" />
-          <path class="relay-wire" d="M180 0v10q0 10 12 10h96q12 0 12 12v10" />
-          <path class="relay-wire" d="M300 0v42" />
-          <path class="relay-wire" d="M420 0v10q0 10-12 10h-96q-12 0-12 12v10" />
-          <path class="relay-wire" d="M540 0v10q0 10-12 10h-216q-12 0-12 12v10" />
-          <path class="relay-route" d="M60 0v10q0 10 12 10h216q12 0 12 12v10" />
+          <path class="relay-wire" d="M75 0v10q0 10 12 10h201q12 0 12 12v10" />
+          <path class="relay-wire" d="M225 0v10q0 10 12 10h51q12 0 12 12v10" />
+          <path class="relay-wire" d="M375 0v10q0 10-12 10h-51q-12 0-12 12v10" />
+          <path class="relay-wire" d="M525 0v10q0 10-12 10h-201q-12 0-12 12v10" />
+          <path class="relay-route" d="M75 0v10q0 10 12 10h201q12 0 12 12v10" />
           <path class="relay-packet" pathLength="100" />
         </svg>
         <div class="relay-hub">
@@ -859,8 +855,7 @@
             <li>A knowledge base combines vector and keyword search across websites, files, Google Drive and APIs.
               Publishing controls and factual guardrails govern what the agent can say, while rules handle call routing
               and business hours.</li>
-            <li>One inbox for phone, WhatsApp, web chat, email (Gmail and Outlook) and SMS, with transcripts and
-              summaries.</li>
+            <li>One inbox for phone, WhatsApp, web chat and email (Gmail and Outlook), with transcripts and summaries.</li>
             <li>Stripe usage-based credit billing and self-serve onboarding to a first test call in under 10 minutes.</li>
           </ul>
         </article>
@@ -1069,8 +1064,7 @@
         { channel: 0, action: 1, detail: 'Book an appointment in Google Calendar.' },
         { channel: 1, action: 0, detail: 'Answer a question on WhatsApp.' },
         { channel: 2, action: 0, detail: 'Use the knowledge base to answer a web chat.' },
-        { channel: 3, action: 0, detail: 'Reply to a Gmail or Outlook thread.' },
-        { channel: 4, action: 0, detail: 'Send a reply by SMS.' },
+        { channel: 3, action: 0, detail: 'Reply to an email thread.' },
         { channel: 0, action: 2, detail: 'Brief staff before transferring the caller.' }
       ];
       const routeDuration = 3400;
